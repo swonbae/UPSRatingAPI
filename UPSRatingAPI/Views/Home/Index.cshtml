@@ -19,7 +19,8 @@
             {
                 <tr>
                     <td>
-                        @item.Service.Code
+                        @*@item.Service.Code*@
+                        @item.Service.Description
                     </td>
                     <td>
                         @string.Format("${0:C}", item.TotalCharges.MonetaryValue)
