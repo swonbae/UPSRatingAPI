@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:tnt="http://www.ups.com/XMLSchema/XOLTWS/tnt/v1.0" xmlns:common="http://www.ups.com/XMLSchema/XOLTWS/Common/v1.0" elementFormDefault="qualified" targetNamespace="http://www.ups.com/XMLSchema/XOLTWS/tnt/v1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="common.xsd" namespace="http://www.ups.com/XMLSchema/XOLTWS/Common/v1.0" />
+  <xsd:complexType name="ResponseShipListAddressType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Town" type="xsd:string" />
+      <xsd:element name="City" type="xsd:string" />
+      <xsd:element minOccurs="0" name="StateProvinceCode" type="xsd:string" />
+      <xsd:element name="CountryCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostcodePrimaryLow" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostcodePrimaryHigh" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestShipFromAddressType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Town" type="xsd:string" />
+      <xsd:element minOccurs="0" name="City" type="xsd:string" />
+      <xsd:element minOccurs="0" name="StateProvinceCode" type="xsd:string" />
+      <xsd:element name="CountryCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestShipToAddressType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="tnt:RequestShipFromAddressType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ResidentialAddressIndicator" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseShipFromAddressType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Town" type="xsd:string" />
+      <xsd:element name="City" type="xsd:string" />
+      <xsd:element minOccurs="0" name="StateProvinceCode" type="xsd:string" />
+      <xsd:element name="CountryCode" type="xsd:string" />
+      <xsd:element name="Country" type="xsd:string" />
+      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseShipToAddressType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="tnt:ResponseShipFromAddressType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ResidentialAddressIndicator" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="RequestShipFromType">
+    <xsd:sequence>
+      <xsd:element name="Address" type="tnt:RequestShipFromAddressType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestShipToType">
+    <xsd:sequence>
+      <xsd:element name="Address" type="tnt:RequestShipToAddressType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseShipFromType">
+    <xsd:sequence>
+      <xsd:element name="Address" type="tnt:ResponseShipFromAddressType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseShipToType">
+    <xsd:sequence>
+      <xsd:element name="Address" type="tnt:ResponseShipToAddressType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ShipmentWeightType">
+    <xsd:sequence>
+      <xsd:element name="UnitOfMeasurement" type="tnt:CodeDescriptionType" />
+      <xsd:element name="Weight" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CodeDescriptionType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PickupType">
+    <xsd:sequence>
+      <xsd:element name="Date" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Time" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="InvoiceLineTotalType">
+    <xsd:sequence>
+      <xsd:element name="CurrencyCode" type="xsd:string" />
+      <xsd:element name="MonetaryValue" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ReturnContractServicesType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TimeInTransitRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="common:Request" />
+        <xsd:element name="ShipFrom" type="tnt:RequestShipFromType" />
+        <xsd:element name="ShipTo" type="tnt:RequestShipToType" />
+        <xsd:element name="Pickup" type="tnt:PickupType" />
+        <xsd:element minOccurs="0" name="ShipmentWeight" type="tnt:ShipmentWeightType" />
+        <xsd:element minOccurs="0" name="TotalPackagesInShipment" type="xsd:string" />
+        <xsd:element minOccurs="0" name="InvoiceLineTotal" type="tnt:InvoiceLineTotalType" />
+        <xsd:element minOccurs="0" name="DocumentsOnlyIndicator" type="xsd:string" />
+        <xsd:element minOccurs="0" name="BillType" type="xsd:string" />
+        <xsd:element minOccurs="0" name="MaximumListSize" type="xsd:string" />
+        <xsd:element minOccurs="0" name="SaturdayDeliveryInfoRequestIndicator" type="xsd:string" />
+        <xsd:element minOccurs="0" name="DropOffAtFacilityIndicator" type="xsd:string" />
+        <xsd:element minOccurs="0" name="HoldForPickupIndicator" type="xsd:string" />
+        <xsd:element tnt:usage="ups" minOccurs="0" name="IncludeAllServicesIndicator" type="xsd:string" />
+        <xsd:element minOccurs="0" maxOccurs="unbounded" name="ReturnContractServices" type="tnt:ReturnContractServicesType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="EstimatedArrivalType">
+    <xsd:sequence>
+      <xsd:element name="Arrival" type="tnt:PickupType" />
+      <xsd:element name="BusinessDaysInTransit" type="xsd:string" />
+      <xsd:element name="Pickup" type="tnt:PickupType" />
+      <xsd:element minOccurs="0" name="DayOfWeek" type="xsd:string" />
+      <xsd:element minOccurs="0" name="CustomerCenterCutoff" type="xsd:string" />
+      <xsd:element minOccurs="0" name="DelayCount" type="xsd:string" />
+      <xsd:element minOccurs="0" name="HolidayCount" type="xsd:string" />
+      <xsd:element minOccurs="0" name="RestDays" type="xsd:string" />
+      <xsd:element minOccurs="0" name="TotalTransitDays" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceSummaryType">
+    <xsd:sequence>
+      <xsd:element name="Service" type="tnt:CodeDescriptionType" />
+      <xsd:element minOccurs="0" name="GuaranteedIndicator" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Disclaimer" type="xsd:string" />
+      <xsd:element name="EstimatedArrival" type="tnt:EstimatedArrivalType" />
+      <xsd:element minOccurs="0" name="SaturdayDelivery" type="xsd:string" />
+      <xsd:element minOccurs="0" name="SaturdayDeliveryDisclaimer" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TransitResponseType">
+    <xsd:sequence>
+      <xsd:element name="ShipFrom" type="tnt:ResponseShipFromType" />
+      <xsd:element name="ShipTo" type="tnt:ResponseShipToType" />
+      <xsd:element name="PickupDate" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ShipmentWeight" type="tnt:ShipmentWeightType" />
+      <xsd:element minOccurs="0" name="InvoiceLineTotal" type="tnt:InvoiceLineTotalType" />
+      <xsd:element minOccurs="0" name="DocumentsOnlyIndicator" type="xsd:string" />
+      <xsd:element minOccurs="0" name="BillType" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MaximumListSize" type="xsd:string" />
+      <xsd:element maxOccurs="unbounded" name="ServiceSummary" type="tnt:ServiceSummaryType" />
+      <xsd:element minOccurs="0" name="AutoDutyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="Disclaimer" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CandidateType">
+    <xsd:sequence>
+      <xsd:element name="Address" type="tnt:ResponseShipListAddressType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ShipListType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Candidate" type="tnt:CandidateType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CandidateResponseType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ShipFromList" type="tnt:ShipListType" />
+      <xsd:element minOccurs="0" name="ShipToList" type="tnt:ShipListType" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="TimeInTransitResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="common:Response" />
+        <xsd:choice>
+          <xsd:element minOccurs="0" name="TransitResponse" type="tnt:TransitResponseType" />
+          <xsd:element minOccurs="0" name="CandidateResponse" type="tnt:CandidateResponseType" />
+        </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

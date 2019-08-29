@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using UPSRatingAPI.UPSTimeRef;
+
 namespace UPSRatingAPI.UPSRateRef {
     
     
@@ -6349,7 +6351,7 @@ namespace UPSRatingAPI.UPSRateRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://onlinetools.ups.com/webservices/RateBinding/v1.1", ReplyAction="*")]
         System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSRatingAPI.UPSRateRef.RateRequest1 request);
     }
-    
+  /*  
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
     [System.SerializableAttribute()]
@@ -6473,7 +6475,7 @@ namespace UPSRatingAPI.UPSRateRef {
             }
         }
     }
-    
+*/    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
     [System.SerializableAttribute()]
@@ -6598,10 +6600,27 @@ namespace UPSRatingAPI.UPSRateRef {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class RateRequest1 {
-        
+    public partial class RateRequest1
+    {
+
+        //[System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
+        //public UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity;
+
+        //[System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.ups.com/XMLSchema/XOLTWS/Rate/v1.1", Order = 0)]
+        //public UPSRatingAPI.UPSRateRef.RateRequest RateRequest;
+
+        //public RateRequest1()
+        //{
+        //}
+
+        //public RateRequest1(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
+        //{
+        //    this.UPSSecurity = UPSSecurity;
+        //    this.RateRequest = RateRequest;
+        //}
+
         [System.ServiceModel.MessageHeaderAttribute(Namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
-        public UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity;
+        public UPSSecurity UPSSecurity;
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.ups.com/XMLSchema/XOLTWS/Rate/v1.1", Order=0)]
         public UPSRatingAPI.UPSRateRef.RateRequest RateRequest;
@@ -6609,7 +6628,7 @@ namespace UPSRatingAPI.UPSRateRef {
         public RateRequest1() {
         }
         
-        public RateRequest1(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest) {
+        public RateRequest1(UPSSecurity UPSSecurity, RateRequest RateRequest) {
             this.UPSSecurity = UPSSecurity;
             this.RateRequest = RateRequest;
         }
@@ -6663,8 +6682,31 @@ namespace UPSRatingAPI.UPSRateRef {
         UPSRatingAPI.UPSRateRef.RateResponse1 UPSRatingAPI.UPSRateRef.RatePortType.ProcessRate(UPSRatingAPI.UPSRateRef.RateRequest1 request) {
             return base.Channel.ProcessRate(request);
         }
-        
-        public UPSRatingAPI.UPSRateRef.RateResponse ProcessRate(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest) {
+
+        //public UPSRatingAPI.UPSRateRef.RateResponse ProcessRate(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
+        //{
+        //    UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
+        //    inValue.UPSSecurity = UPSSecurity;
+        //    inValue.RateRequest = RateRequest;
+        //    UPSRatingAPI.UPSRateRef.RateResponse1 retVal = ((UPSRatingAPI.UPSRateRef.RatePortType)(this)).ProcessRate(inValue);
+        //    return retVal.RateResponse;
+        //}
+
+        //[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        //System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> UPSRatingAPI.UPSRateRef.RatePortType.ProcessRateAsync(UPSRatingAPI.UPSRateRef.RateRequest1 request)
+        //{
+        //    return base.Channel.ProcessRateAsync(request);
+        //}
+
+        //public System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
+        //{
+        //    UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
+        //    inValue.UPSSecurity = UPSSecurity;
+        //    inValue.RateRequest = RateRequest;
+        //    return ((UPSRatingAPI.UPSRateRef.RatePortType)(this)).ProcessRateAsync(inValue);
+        //}
+
+        public UPSRatingAPI.UPSRateRef.RateResponse ProcessRate(UPSSecurity UPSSecurity, RateRequest RateRequest) {
             UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
             inValue.UPSSecurity = UPSSecurity;
             inValue.RateRequest = RateRequest;
@@ -6677,7 +6719,7 @@ namespace UPSRatingAPI.UPSRateRef {
             return base.Channel.ProcessRateAsync(request);
         }
         
-        public System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest) {
+        public System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest) {
             UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
             inValue.UPSSecurity = UPSSecurity;
             inValue.RateRequest = RateRequest;

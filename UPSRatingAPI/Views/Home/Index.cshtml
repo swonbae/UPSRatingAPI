@@ -1,4 +1,5 @@
 ﻿@using UPSRatingAPI.Models
+@using System.Globalization
 
 @model RatePackage
 
@@ -15,15 +16,45 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Response.RatedShipment)
+            @foreach (var item in Model.rateResponse.RatedShipment)
             {
                 <tr>
                     <td>
-                        @*@item.Service.Code*@
+                        @item.Service.Code
+                        @item.Service.Description
+                        @*@Convert.ToInt32(item.TimeInTransit)*@
+                    </td>
+                    <td>
+                        @string.Format("{0} {1:C}", item.TotalCharges.CurrencyCode, item.TotalCharges.MonetaryValue)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Service Name
+                </th>
+                <th>
+                    Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.timeResponse.ServiceSummary)
+            {
+                <tr>
+                    <td>
+                        @item.Service.Code
                         @item.Service.Description
                     </td>
                     <td>
-                        @string.Format("${0:C}", item.TotalCharges.MonetaryValue)
+                        @{ DateTime dt = DateTime.ParseExact(item.EstimatedArrival.Arrival.Date, "yyyyMMdd", CultureInfo.InvariantCulture);
+                        }
+                        @(dt.ToLongDateString())
                     </td>
                 </tr>
             }
