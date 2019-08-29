@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -16,6 +17,20 @@ namespace UPSRatingAPI.Controllers
         private readonly string password = WebConfigurationManager.AppSettings["UpsPassword"];
         private readonly string accessToken = WebConfigurationManager.AppSettings["AccessToken"];
 
+        private readonly string SHIPFROM_CITY = "Toronto";
+        private readonly string SHIPFROM_POSTALCODE = "M1P4P5";
+        private readonly string SHIPFROM_COUNTRYCODE = "CA";
+
+        private readonly string SHIPTO_CITY = "Vancouver";
+        private readonly string SHIPTO_POSTALCODE = "V5Y1V4";
+        private readonly string SHIPTO_COUNTRYCODE = "CA";
+
+        private readonly string PICKUP_DATE = "20190903";
+
+        private readonly string WEIGHT = "10";
+        private readonly string MESUREMENT = "LBS";
+        //private readonly string MESUREMENT_DISCRIPTION = "pounds";
+
         public ActionResult Index()
         {
 
@@ -30,17 +45,33 @@ namespace UPSRatingAPI.Controllers
             upssUsrNameToken.Password = password;
             upss.UsernameToken = upssUsrNameToken;
 
-            RatePackage model = new RatePackage();
+            RatePackage rPackage = new RatePackage();
 
-            RequestRate(upss, model);
-            RequestTime(upss, model);
+            RequestRate(upss, rPackage);
+            RequestTime(upss, rPackage);
 
-                return View(model);
+            return View(MatchData(rPackage).OrderBy(m => m.estimatedTime_num));
+        }
+
+        private IEnumerable<RateTimeData> MatchData(RatePackage rPackage)
+        {
+            List<RateTimeData> rtList = new List<RateTimeData>();
+
+            foreach(var item in rPackage.rateResponse.RatedShipment)
+            {
+                var date = rPackage.timeResponse.ServiceSummary.FirstOrDefault(s => s.Service.Description.Equals(item.Service.Description)).EstimatedArrival.Arrival.Date;
+                DateTime dt = DateTime.ParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+                rtList.Add(new RateTimeData(item.Service.Description, dt.ToString("d MMMM yyyy"), Convert.ToInt32(date), item.TotalCharges.MonetaryValue));
+            }
+
+            return rtList;
         }
 
         private void RequestTime(UPSSecurity upss, RatePackage rPackage)
         {
             TimeInTransitRequest tntRequest = new TimeInTransitRequest();
+
             UPSTimeRef.RequestType request = new UPSTimeRef.RequestType();
             String[] requestOption = { "TNT" };
             request.RequestOption = requestOption;
@@ -48,32 +79,30 @@ namespace UPSRatingAPI.Controllers
 
             RequestShipFromType shipFrom = new RequestShipFromType();
             RequestShipFromAddressType addressFrom = new RequestShipFromAddressType();
-            addressFrom.City = "Toronto";
-            addressFrom.CountryCode = "CA";
-            addressFrom.PostalCode = "M1P4P5";
-            //addressFrom.StateProvinceCode = "ShipFrom state province code";
+            addressFrom.City = SHIPFROM_CITY;
+            addressFrom.CountryCode = SHIPFROM_COUNTRYCODE;
+            addressFrom.PostalCode = SHIPFROM_POSTALCODE;
             shipFrom.Address = addressFrom;
             tntRequest.ShipFrom = shipFrom;
 
             RequestShipToType shipTo = new RequestShipToType();
             RequestShipToAddressType addressTo = new RequestShipToAddressType();
-            addressTo.City = "Toronto";
-            addressTo.CountryCode = "CA";
-            addressTo.PostalCode = "M1P4P5";
-            //addressTo.StateProvinceCode = "ShipTo state province code";
+            addressTo.City = SHIPTO_CITY;
+            addressTo.CountryCode = SHIPTO_COUNTRYCODE;
+            addressTo.PostalCode = SHIPTO_POSTALCODE;
             shipTo.Address = addressTo;
             tntRequest.ShipTo = shipTo;
 
             UPSTimeRef.PickupType pickup = new UPSTimeRef.PickupType();
-            pickup.Date = "20190830";
+            pickup.Date = PICKUP_DATE;
             tntRequest.Pickup = pickup;
 
             //Below code uses dummy data for reference. Please update as required.
             UPSTimeRef.ShipmentWeightType shipmentWeight = new UPSTimeRef.ShipmentWeightType();
-            shipmentWeight.Weight = "10";
+            shipmentWeight.Weight = WEIGHT;
             UPSTimeRef.CodeDescriptionType unitOfMeasurement = new UPSTimeRef.CodeDescriptionType();
-            unitOfMeasurement.Code = "LBS";
-            unitOfMeasurement.Description = "pounds";
+            unitOfMeasurement.Code = MESUREMENT;
+            //unitOfMeasurement.Description = MESUREMENT_DISCRIPTION;
             shipmentWeight.UnitOfMeasurement = unitOfMeasurement;
             tntRequest.ShipmentWeight = shipmentWeight;
 
@@ -83,16 +112,7 @@ namespace UPSRatingAPI.Controllers
             invoiceLineTotal.MonetaryValue = "10";
             tntRequest.InvoiceLineTotal = invoiceLineTotal;
             tntRequest.MaximumListSize = "1";
-
-            //UPSSecurity upss = new UPSSecurity();
-            //UPSSecurityServiceAccessToken upsSvcToken = new UPSSecurityServiceAccessToken();
-            //upsSvcToken.AccessLicenseNumber = "3D6A1DD5F39023B5";
-            //upss.ServiceAccessToken = upsSvcToken;
-            //UPSSecurityUsernameToken upsSecUsrnameToken = new UPSSecurityUsernameToken();
-            //upsSecUsrnameToken.Username = "Deverloper2019";
-            //upsSecUsrnameToken.Password = "Deverloper=2019";
-            //upss.UsernameToken = upsSecUsrnameToken;
-
+            
             TimeInTransitService tntService = new TimeInTransitService();
             tntService.UPSSecurityValue = upss;
 
@@ -110,7 +130,6 @@ namespace UPSRatingAPI.Controllers
             RateRequest rateRequest = new RateRequest();
 
             UPSRateRef.RequestType request = new UPSRateRef.RequestType();
-            //String[] requestOption = { "Rate" };
             String[] requestOption = { "Shop" };
             request.RequestOption = requestOption;
             rateRequest.Request = request;
@@ -119,39 +138,34 @@ namespace UPSRatingAPI.Controllers
 
             ShipperType shipper = new ShipperType();
             AddressType shipperAddress = new AddressType();
-            shipperAddress.City = "Toronto";
-            shipperAddress.PostalCode = "M1P4P5";
-            shipperAddress.CountryCode = "CA";
+            shipperAddress.City = SHIPFROM_CITY;
+            shipperAddress.PostalCode = SHIPFROM_POSTALCODE;
+            shipperAddress.CountryCode = SHIPFROM_COUNTRYCODE;
             shipper.Address = shipperAddress;
             shipment.Shipper = shipper;
 
             ShipFromType shipFrom = new ShipFromType();
             ShipAddressType shipFromAddress = new ShipAddressType();
-            shipFromAddress.City = "Toronto";
-            shipFromAddress.PostalCode = "M1P4P5";
-            shipFromAddress.CountryCode = "CA";
+            shipFromAddress.City = SHIPFROM_CITY; 
+            shipFromAddress.PostalCode = SHIPFROM_POSTALCODE;
+            shipFromAddress.CountryCode = SHIPFROM_COUNTRYCODE;
             shipFrom.Address = shipFromAddress;
             shipment.ShipFrom = shipFrom;
 
             ShipToType shipTo = new ShipToType();
             ShipToAddressType shipToAddress = new ShipToAddressType();
-            shipToAddress.City = "Toronto";
-            shipToAddress.PostalCode = "M1P4P5";
-            shipToAddress.CountryCode = "CA";
+            shipToAddress.City = SHIPTO_CITY;
+            shipToAddress.PostalCode = SHIPTO_POSTALCODE;
+            shipToAddress.CountryCode = SHIPTO_COUNTRYCODE;
             shipTo.Address = shipToAddress;
             shipment.ShipTo = shipTo;
 
-            UPSRateRef.CodeDescriptionType service = new UPSRateRef.CodeDescriptionType();
-            //Below code uses dummy date for reference. Please udpate as required.
-            service.Code = "03";
-            shipment.Service = service;
-
             PackageType package = new PackageType();
             PackageWeightType packageWeight = new PackageWeightType();
-            packageWeight.Weight = "10";
+            packageWeight.Weight = WEIGHT;
             UPSRateRef.CodeDescriptionType uom = new UPSRateRef.CodeDescriptionType();
-            uom.Code = "LBS";
-            uom.Description = "pounds";
+            uom.Code = MESUREMENT;
+            //uom.Description = MESUREMENT_DISCRIPTION;
             packageWeight.UnitOfMeasurement = uom;
             package.PackageWeight = packageWeight;
             UPSRateRef.CodeDescriptionType packType = new UPSRateRef.CodeDescriptionType();
@@ -175,19 +189,6 @@ namespace UPSRatingAPI.Controllers
 
             rPackage.rateResponse = rateResponse;
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

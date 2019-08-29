@@ -10,8 +10,7 @@
 
 using UPSRatingAPI.UPSTimeRef;
 
-namespace UPSRatingAPI.UPSRateRef {
-    
+namespace UPSRatingAPI.UPSRateRef {    
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
@@ -6351,131 +6350,7 @@ namespace UPSRatingAPI.UPSRateRef {
         [System.ServiceModel.OperationContractAttribute(Action="http://onlinetools.ups.com/webservices/RateBinding/v1.1", ReplyAction="*")]
         System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSRatingAPI.UPSRateRef.RateRequest1 request);
     }
-  /*  
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
-    public partial class UPSSecurity : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private UPSSecurityUsernameToken usernameTokenField;
-        
-        private UPSSecurityServiceAccessToken serviceAccessTokenField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public UPSSecurityUsernameToken UsernameToken {
-            get {
-                return this.usernameTokenField;
-            }
-            set {
-                this.usernameTokenField = value;
-                this.RaisePropertyChanged("UsernameToken");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public UPSSecurityServiceAccessToken ServiceAccessToken {
-            get {
-                return this.serviceAccessTokenField;
-            }
-            set {
-                this.serviceAccessTokenField = value;
-                this.RaisePropertyChanged("ServiceAccessToken");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
-    public partial class UPSSecurityUsernameToken : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string usernameField;
-        
-        private string passwordField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string Username {
-            get {
-                return this.usernameField;
-            }
-            set {
-                this.usernameField = value;
-                this.RaisePropertyChanged("Username");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public string Password {
-            get {
-                return this.passwordField;
-            }
-            set {
-                this.passwordField = value;
-                this.RaisePropertyChanged("Password");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
-    public partial class UPSSecurityServiceAccessToken : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string accessLicenseNumberField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public string AccessLicenseNumber {
-            get {
-                return this.accessLicenseNumberField;
-            }
-            set {
-                this.accessLicenseNumberField = value;
-                this.RaisePropertyChanged("AccessLicenseNumber");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-*/    
+  
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3761.0")]
     [System.SerializableAttribute()]
@@ -6602,23 +6477,6 @@ namespace UPSRatingAPI.UPSRateRef {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class RateRequest1
     {
-
-        //[System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
-        //public UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity;
-
-        //[System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.ups.com/XMLSchema/XOLTWS/Rate/v1.1", Order = 0)]
-        //public UPSRatingAPI.UPSRateRef.RateRequest RateRequest;
-
-        //public RateRequest1()
-        //{
-        //}
-
-        //public RateRequest1(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
-        //{
-        //    this.UPSSecurity = UPSSecurity;
-        //    this.RateRequest = RateRequest;
-        //}
-
         [System.ServiceModel.MessageHeaderAttribute(Namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0")]
         public UPSSecurity UPSSecurity;
         
@@ -6682,29 +6540,6 @@ namespace UPSRatingAPI.UPSRateRef {
         UPSRatingAPI.UPSRateRef.RateResponse1 UPSRatingAPI.UPSRateRef.RatePortType.ProcessRate(UPSRatingAPI.UPSRateRef.RateRequest1 request) {
             return base.Channel.ProcessRate(request);
         }
-
-        //public UPSRatingAPI.UPSRateRef.RateResponse ProcessRate(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
-        //{
-        //    UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
-        //    inValue.UPSSecurity = UPSSecurity;
-        //    inValue.RateRequest = RateRequest;
-        //    UPSRatingAPI.UPSRateRef.RateResponse1 retVal = ((UPSRatingAPI.UPSRateRef.RatePortType)(this)).ProcessRate(inValue);
-        //    return retVal.RateResponse;
-        //}
-
-        //[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        //System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> UPSRatingAPI.UPSRateRef.RatePortType.ProcessRateAsync(UPSRatingAPI.UPSRateRef.RateRequest1 request)
-        //{
-        //    return base.Channel.ProcessRateAsync(request);
-        //}
-
-        //public System.Threading.Tasks.Task<UPSRatingAPI.UPSRateRef.RateResponse1> ProcessRateAsync(UPSRatingAPI.UPSRateRef.UPSSecurity UPSSecurity, UPSRatingAPI.UPSRateRef.RateRequest RateRequest)
-        //{
-        //    UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();
-        //    inValue.UPSSecurity = UPSSecurity;
-        //    inValue.RateRequest = RateRequest;
-        //    return ((UPSRatingAPI.UPSRateRef.RatePortType)(this)).ProcessRateAsync(inValue);
-        //}
 
         public UPSRatingAPI.UPSRateRef.RateResponse ProcessRate(UPSSecurity UPSSecurity, RateRequest RateRequest) {
             UPSRatingAPI.UPSRateRef.RateRequest1 inValue = new UPSRatingAPI.UPSRateRef.RateRequest1();

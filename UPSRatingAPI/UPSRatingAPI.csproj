@@ -143,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\RatePackage.cs" />
+    <Compile Include="Models\RateTimeData.cs" />
     <Compile Include="Models\ServiceCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
